@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +13,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts/app');
 });
+
+Route::get('/info', [App\Http\Controllers\StartController::class, 'info'])->name('activation');
+Route::get('/activ/{id}', [App\Http\Controllers\StartController::class, 'activ'])->where(['id' => '[0-9]+'])->name('activ');
+Route::get('/success', [App\Http\Controllers\StartController::class, 'success'])->name('success');
+Route::delete('/{id}', [App\Http\Controllers\StartController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy');
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
